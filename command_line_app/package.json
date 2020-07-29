@@ -1,14 +1,13 @@
 {
-  "name": "nsit_gpa_calculator",
+  "name": "command_line_app",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "bin": {
-    "getmygpa": "./index.js"
+    "getmynsitgpa": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Varun Gupta <varun.gupta1798@gmail.com> (http://codingblocks.com)",
   "license": "ISC",
