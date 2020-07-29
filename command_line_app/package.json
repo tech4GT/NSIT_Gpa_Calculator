@@ -1,0 +1,18 @@
+{
+  "name": "nsit_gpa_calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "bin": {
+    "getmygpa": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Varun Gupta <varun.gupta1798@gmail.com> (http://codingblocks.com)",
+  "license": "ISC",
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
+  }
+}
