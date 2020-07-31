@@ -25,8 +25,17 @@ reader.onload = function(event) {
 
         for (let i in temp) {
             const sem = sems[i];
-            credits += parseInt(temp[i].substring(sem.length, sem.length + 2));
-            total += parseInt(temp[i].split(".")[0].slice(0, -1).substring(sem.length + 2));
+            const dec_loc = temp[i].indexOf(".");
+
+            const credits_this_sem = parseInt(temp[i].substring(sem.length, sem.length + 2));
+            const sgpa = parseFloat(temp[i].substring(dec_loc - 1, dec_loc + 3));
+
+            console.log(sgpa);
+            console.log(sgpa * credits_this_sem);
+
+            credits += credits_this_sem;
+            // total += (parseInt(temp[i].split(".")[0].slice(0, -1).substring(sem.length + 2)) * credits_this_sem);
+            total += (sgpa * credits_this_sem);
         }
 
         const results = `Total Credit Point:<b> ${total}</b><br>
