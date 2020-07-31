@@ -1,72 +1,37 @@
 var reader = new FileReader();
+const sems = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "garbage_val"]
 reader.onload = function(event) {
     var contents = event.target.result;
     gettext(contents).then(text => {
 
         text = text.split("SemTotal CreditTotal Credit PointSGPACredit Secured")[1];
+        const temp = [];
+        let rem = text.substring(1);
 
-        const temp = [NaN];
-        let rem = text;
-        temp.push(text.split("II")[0]);
-        rem = rem.substring(rem.indexOf("II") + 2);
-        console.log(rem);
-        temp.push("II" + rem.split("III")[0]);
-        rem = rem.substring(rem.indexOf("III") + 3);
-        temp.push("III" + rem.split("IV")[0]);
-        rem = rem.substring(rem.indexOf("IV") + 2);
-        temp.push("IV" + rem.split("V")[0]);
-        rem = rem.substring(rem.indexOf("V") + 1);
-        temp.push("V" + rem.split("VI")[0]);
-        rem = rem.substring(rem.indexOf("VI") + 2);
-        temp.push("VI" + rem.split("VII")[0]);
-        rem = rem.substring(rem.indexOf("VII") + 3);
-        temp.push("VII" + rem.split("Grand")[0]);
+        for (let i = 0; i < sems.length - 1; i++) {
+            let ind = rem.indexOf(sems[i + 1]);
+            if (ind === -1) {
+                temp.push(sems[i] + rem.split("Grand")[0]);
+                break;
+            }
 
-        console.log(temp);
+            temp.push(sems[i] + rem.substring(0, ind));
+            rem = rem.substring(ind + sems[i + 1].length);
+            console.log(temp);
 
-        text = temp;
+        }
 
         let total = 0, credits = 0;
 
-        //sem 1
-        credits += parseInt(text[1].substring(1, 3));
-        total += parseInt(text[1].split(".")[0].slice(0, -1).substring(3));
-        // console.log(credits);
-        // console.log(total);
-
-        //sem 2
-        credits += parseInt(text[2].substring(2, 4));
-        total += parseInt(text[2].split(".")[0].slice(0, -1).substring(4));
-        // console.log(credits);
-
-        //sem 3
-        credits += parseInt(text[3].substring(3, 5));
-        total += parseInt(text[3].split(".")[0].slice(0, -1).substring(5));
-        // console.log(credits);
-
-        //sem 4
-        credits += parseInt(text[4].substring(2, 4));
-        total += parseInt(text[4].split(".")[0].slice(0, -1).substring(4));
-        // console.log(credits);
-
-        //sem 5
-        credits += parseInt(text[5].substring(1, 3));
-        total += parseInt(text[5].split(".")[0].slice(0, -1).substring(3));
-        // console.log(credits);
-
-        //sem 6
-        credits += parseInt(text[6].substring(2, 4));
-        total += parseInt(text[6].split(".")[0].slice(0, -1).substring(4));
-        // console.log(credits);
-
-        //sem 7
-        credits += parseInt(text[7].substring(3, 5));
-        total += parseInt(text[7].split(".")[0].slice(0, -1).substring(5));
-        // console.log(credits);
+        for (let i in temp) {
+            const sem = sems[i];
+            credits += parseInt(temp[i].substring(sem.length, sem.length + 2));
+            total += parseInt(temp[i].split(".")[0].slice(0, -1).substring(sem.length + 2));
+        }
 
         const results = `Total Credit Point:<b> ${total}</b><br>
             Total Credits: <b>${credits}</b><br>
-            Your GPA for 7 semesters is: <b>${total / credits}</b>`;
+            Your GPA for ${temp.length} semesters is: <b>${total / credits}</b>`;
 
         document.getElementById("result").innerHTML += results;
         document.getElementById("card").hidden = false;
