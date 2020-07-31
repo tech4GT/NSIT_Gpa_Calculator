@@ -10,7 +10,7 @@ You can install the command line utility by installing it globally and then usin
 
 ```bash
 npm i -g ./command_line_app
-getmygpa <Path to the pdf transcripts>
+getmynsitgpa <Path to the pdf transcripts>
 ```
 <br>
 <b>This will not work if you have an sgpa of 10 in any of your semesters. Mostly because if you put in enough work to get a perfect 10, put in some more and calculate your GPA yourself. :)
